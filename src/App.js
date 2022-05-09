@@ -3,20 +3,28 @@ import NavBar from './Components/NavBar/NavBar';
 import MusicTable from './Components/MusicTable/MusicTable';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import SearchBar from './Components/SearchBar/SearchBar';
+import { toHaveErrorMessage } from '@testing-library/jest-dom/dist/matchers';
 
 function App() {
 
-  const [songs, setSongs] = useState([{title: "Delete Dog",artist: "Elvis Presley",album: "Single",release_date: "1956-07-13",genre: "Rock and Roll",likes: "5"},{title: "Delete Dog",artist: "Elvis Presley",album: "Single",releaseDate: "1956-07-13",genre: "Rock and Roll",likes: "5"}]);
+  const [songs, setSongs] = useState([]);
 
   useEffect(() => {
     getAllSongs();
   }, [])
 
   async function getAllSongs(){
-    let response = await axios.get('http://127.0.0.1:8000/api/music')
-    console.log(response.data);
+    let response = await axios.get('http://127.0.0.1:8000/api/music');
     setSongs(response.data);
   }
+ 
+  async function filterSongs(category, filterData) {
+    let response = await axios.get(`http://127.0.0.1:8000/api/music?${category}=${filterData}`);
+    setSongs(response.data);
+    
+  }
+
 
   return (
     <div>
@@ -24,7 +32,10 @@ function App() {
         <NavBar />
       </div>
       <div>
-        <MusicTable songs={songs} getAllSongs={getAllSongs} />
+        <SearchBar filterSongs={filterSongs} songs={songs} />
+      </div>
+      <div>
+        <MusicTable songs={songs} />
       </div>
     </div>
   );

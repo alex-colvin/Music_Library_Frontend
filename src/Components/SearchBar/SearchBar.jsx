@@ -1,18 +1,26 @@
+import React, { useState } from 'react';
+import App from '../../App';
+
 const SearchBar = (props) => {
 
+    const [category, setCategory] = useState();
+    const [filterData, setFilterData] = useState();
+
     function handleSubmit(event) {
-        event.preventDefault();
-        props.getAllSongs() 
+        event.preventDefault()
+        props.filterSongs(category, filterData)
     }
 
 
-    return ( 
-        <div>Search Bar
+    return (                  
             <form onSubmit={handleSubmit}>
-                <button>Get All Songs</button>
+                <h3>Search Bar</h3>
+                <label>Category:</label>
+                <input type='text' value={category} onChange={(event) => setCategory(event.target.value)}/>
+                <label>Filter:</label>
+                <input type='text' value={filterData} onChange={(event) => setFilterData(event.target.value)}/>
+                <button onClick={handleSubmit}>Filter</button>
             </form>
-        </div>
-
      );
 }
  
