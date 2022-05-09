@@ -1,18 +1,35 @@
-import Song from "../Song/Song";
 
 const MusicTable = (props) => {
     return ( 
         <div>
-            <div>Music Table</div>
-            <div>
-                {props.songs.map((entry, index) => {
-                    return(
-                        <div key={index}>
-                            <Song  title={entry.title} artist={entry.artist} album={entry.album} releaseDate={entry.releaseDate} genre={entry.genre} likes={entry.likes} />
-                        </div>
-                    )
-                })}
-            </div>
+            <h3>Music Table</h3>
+            <table className="table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th>Release</th>
+                <th>Genre</th>
+                <th>Likes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {props.songs.map((entry, index) => {
+                return(
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{entry.title}</td>
+                    <td>{entry.artist}</td>
+                    <td>{entry.album}</td>
+                    <td>{entry.release_date}</td>
+                    <td>{entry.genre}</td>
+                    <td>{entry.likes}</td>
+                  </tr>
+                )
+              })}
+            </tbody>        
+                  </table>
         </div>
      );
 }

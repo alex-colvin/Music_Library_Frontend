@@ -1,14 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
 import NavBar from './Components/NavBar/NavBar';
 import MusicTable from './Components/MusicTable/MusicTable';
-import SearchBar from './Components/SearchBar/SearchBar';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
 
-  const [songs, setSongs] = useState([{title: "Delete Dog",artist: "Elvis Presley",album: "Single",releaseDate: "1956-07-13",genre: "Rock and Roll",likes: "5"},{title: "Delete Dog",artist: "Elvis Presley",album: "Single",releaseDate: "1956-07-13",genre: "Rock and Roll",likes: "5"}]);
+  const [songs, setSongs] = useState([{title: "Delete Dog",artist: "Elvis Presley",album: "Single",release_date: "1956-07-13",genre: "Rock and Roll",likes: "5"},{title: "Delete Dog",artist: "Elvis Presley",album: "Single",releaseDate: "1956-07-13",genre: "Rock and Roll",likes: "5"}]);
 
   useEffect(() => {
     getAllSongs();
@@ -16,6 +14,7 @@ function App() {
 
   async function getAllSongs(){
     let response = await axios.get('http://127.0.0.1:8000/api/music')
+    console.log(response.data);
     setSongs(response.data);
   }
 
@@ -25,10 +24,7 @@ function App() {
         <NavBar />
       </div>
       <div>
-        <SearchBar getAllSongs={getAllSongs} />
-      </div>
-      <div>
-        <MusicTable songs={songs} />
+        <MusicTable songs={songs} getAllSongs={getAllSongs} />
       </div>
     </div>
   );
