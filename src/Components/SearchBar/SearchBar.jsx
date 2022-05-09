@@ -1,6 +1,18 @@
 const SearchBar = (props) => {
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        props.getAllSongs() 
+    }
+
+
     return ( 
-        <div>Search Bar</div>
+        <div>Search Bar
+            <form onSubmit={handleSubmit}>
+                <button>Get All Songs</button>
+            </form>
+        </div>
+
      );
 }
  
