@@ -1,17 +1,20 @@
 import App from "../../App";
+import './MusicTable.css'
 const MusicTable = (props) => {
   return ( 
-        <div>
-            <h3>Music Library</h3>
-            <table className="table">
+        <div className="w-75 btn-center">
+            <table className="text-center table table-dark table-striped table-bordered">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Artist</th>
-                <th>Album</th>
-                <th>Release</th>
-                <th>Genre</th>
-                <th>Likes</th>
+                <th className='col-2'>Title</th>
+                <th className='col-2'>Artist</th>
+                <th className='col-2'>Album</th>
+                <th className='col-2'>Release</th>
+                <th className='col-2'>Genre</th>
+                <th className='col-1'>Likes</th>
+                <th className='col-1' />
+                <th className='col-1' />
+                <th className='col-1' />
               </tr>
             </thead>
             <tbody>
@@ -25,13 +28,14 @@ const MusicTable = (props) => {
                     <td>{entry.release_date}</td>
                     <td>{entry.genre}</td>
                     <td>{entry.likes}</td>
-                    <td><button onClick={() => props.deleteSong(entry.id)}> Delete Song</button></td>
-                    <td><button onClick={() => props.likeSong(entry.id)}>Like</button></td>
+                    <td><button className="btn btn-secondary btn-sm btn-center" onClick={() => props.likeSong(entry.id)}>Like</button></td>
+                    <td><button className="btn btn-secondary btn-sm btn-center" onClick={() => props.editSong(entry.id)}>Edit</button></td>
+                    <td><button className="btn btn-secondary btn-sm btn-center" onClick={() => props.deleteSong(entry.id)}>Delete</button></td>
                   </tr>
                 )
               })}
             </tbody>        
-                  </table>
+          </table>
         </div>
      );
 }
