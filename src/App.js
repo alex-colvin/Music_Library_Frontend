@@ -1,11 +1,11 @@
 import './App.css';
-import NavBar from './Components/NavBar/NavBar';
 import MusicTable from './Components/MusicTable/MusicTable';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchBar from './Components/SearchBar/SearchBar';
 import { toHaveErrorMessage } from '@testing-library/jest-dom/dist/matchers';
 import PostSong from './Components/PostSong/PostSong';
+import bootstrap from 'bootstrap';
 
 function App() {
 
@@ -33,20 +33,26 @@ function App() {
   }
 
   async function deleteSong(key){
-    let response = await axios.delete(`http://127.0.0.1:8000/api/music/${key}`);
-      await getAllSongs();
+    await axios.delete(`http://127.0.0.1:8000/api/music/${key}`);
+    await getAllSongs();
+  }
+
+  async function likeSong(key){
+    await axios.patch(`http://127.0.0.1:8000/api/music/${key}/like/`)
+    await getAllSongs();
   }
 
   return (
     <div>
-      <div>
-        <NavBar />
+      <div className='p-4 text-center bg-light'>
+        <h1 className='mb-3'>Music Library</h1>
       </div>
-      <div>
+      <div className='bg-secondary align-middle'>
+        <h2 className='text-center pt-2'>Filter Songs</h2>
         <SearchBar filterSongs={filterSongs} songs={songs} />
       </div>
       <div>
-        <MusicTable songs={songs} deleteSong={deleteSong} />
+        <MusicTable songs={songs} deleteSong={deleteSong} likeSong={likeSong}/>
       </div>
       <div>
         <PostSong createSong={createSong} />
